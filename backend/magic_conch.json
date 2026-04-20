@@ -1,0 +1,10 @@
+[{
+  "instruction": "hi",
+  "input": "",
+  "output": "haha"
+},
+  {
+    "instruction": "hello",
+    "input": "",
+    "output": "嘿嘿"
+  }]
