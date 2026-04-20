@@ -91,10 +91,10 @@ In Vercel:
 4. Set the output directory to `dist`
 5. Add `VITE_API_BASE_URL` as an environment variable pointing to your deployed backend URL
 
-For the backend, make sure `APP_CORS_ALLOWED_ORIGINS` includes your Vercel domain, for example:
+For the backend, set `APP_CORS_ALLOWED_ORIGIN_PATTERNS` to allow your Vercel domains, for example:
 
 ```bash
-APP_CORS_ALLOWED_ORIGINS=https://your-project.vercel.app
+APP_CORS_ALLOWED_ORIGIN_PATTERNS=http://localhost:5173,https://*.vercel.app
 ```
 
 ## Render Backend Deployment

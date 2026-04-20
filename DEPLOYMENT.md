@@ -171,7 +171,7 @@ Recommended Render settings:
 Required Render environment variables:
 
 - `DEEPSEEK_API_KEY`
-- `APP_CORS_ALLOWED_ORIGINS=https://your-project.vercel.app`
+- `APP_CORS_ALLOWED_ORIGIN_PATTERNS=http://localhost:5173,https://*.vercel.app`
 
 After Render assigns a backend URL such as:
 
