@@ -1,17 +1,23 @@
-# Tomato Portable Bundle
+# Tomato Expert System
 
-This repository contains the frontend and backend source code for the tomato expert system, prepared for GitHub upload and cloud deployment.
+This repository contains the source code for a tomato-growing expert system with a Vue frontend and a Spring Boot backend. The current version uses the DeepSeek cloud API for inference and no longer depends on a local model runtime.
 
-## Included
+## Stack
 
-- `backend/`: Spring Boot backend
-- `frontend/`: Vue + Vite frontend
-- `service/`: local Python service scripts kept for reference
-- `scripts/`: helper start scripts
+- Frontend: Vue 3 + Vite + Element Plus
+- Backend: Spring Boot 3 + Java 17
+- AI provider: DeepSeek API
 
-## Excluded From Git
+## Repository Layout
 
-The following large or machine-specific folders are ignored and should not be uploaded to GitHub:
+- `frontend/`: web client
+- `backend/`: Spring Boot API
+- `service/`: legacy local Python service kept only for reference
+- `scripts/`: helper scripts from the original portable bundle
+
+## What Is Not Committed
+
+This repository ignores machine-specific and large local files, including:
 
 - `models/`
 - `python_env/`
@@ -19,16 +25,21 @@ The following large or machine-specific folders are ignored and should not be up
 - `frontend/node_modules/`
 - `frontend/dist/`
 - `backend/target/`
-- local log files
+- local logs
+- local `.env` files
 
-## DeepSeek Configuration
+## Environment Variables
 
-The backend now reads the API key from the `DEEPSEEK_API_KEY` environment variable.
-
-Example on Windows PowerShell:
+The backend reads the DeepSeek API key from an environment variable:
 
 ```powershell
 $env:DEEPSEEK_API_KEY="your-deepseek-api-key"
+```
+
+Linux/macOS:
+
+```bash
+export DEEPSEEK_API_KEY="your-deepseek-api-key"
 ```
 
 ## Local Development
@@ -48,11 +59,23 @@ npm install
 npm run dev
 ```
 
-## GitHub Upload Notes
+Default local ports:
 
-Before pushing to GitHub:
+- Frontend: `5173`
+- Backend: `8082`
 
-1. Keep only source code and documentation in the repository.
-2. Do not commit model files, local Python environments, runtime bundles, build artifacts, or secrets.
-3. If you need cloud deployment, recreate dependencies on the server from `pom.xml` and `package.json`.
+## Production Deployment
 
+See [DEPLOYMENT.md](DEPLOYMENT.md) for a Linux cloud deployment guide with:
+
+- Java and Node installation
+- backend build and startup
+- frontend build output hosting
+- Nginx reverse proxy example
+- environment variable setup
+
+## Security Notes
+
+- Do not commit real API keys or server-specific secrets.
+- Keep `DEEPSEEK_API_KEY` in environment variables or your deployment platform secret manager.
+- Rebuild dependencies on the server from `pom.xml` and `package.json` instead of uploading local runtime bundles.
