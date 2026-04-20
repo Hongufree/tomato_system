@@ -74,6 +74,27 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for a Linux cloud deployment guide with:
 - Nginx reverse proxy example
 - environment variable setup
 
+## Vercel Frontend Deployment
+
+This repository is best deployed with:
+
+- `frontend/` on Vercel
+- `backend/` on a Java-friendly platform such as a cloud server, Render, Railway, or Fly.io
+
+In Vercel:
+
+1. Import the GitHub repository
+2. Set the Root Directory to `frontend`
+3. Set the build command to `npm run build`
+4. Set the output directory to `dist`
+5. Add `VITE_API_BASE_URL` as an environment variable pointing to your deployed backend URL
+
+For the backend, make sure `APP_CORS_ALLOWED_ORIGINS` includes your Vercel domain, for example:
+
+```bash
+APP_CORS_ALLOWED_ORIGINS=https://your-project.vercel.app
+```
+
 ## Security Notes
 
 - Do not commit real API keys or server-specific secrets.
