@@ -219,27 +219,30 @@ const sendMessage = async () => {
     loading: true
   }
   currentConversation.value.messages.push(loadingMessage)
+  const loadingMessageIndex = currentConversation.value.messages.length - 1
   nextTick(scrollToBottom)
 
   try {
     const res = await get(API.GENERATE, { prompt: requestPrompt })
 
     if (res.code === 100) {
-      loadingMessage.content = res.data
-      loadingMessage.loading = false
+      currentConversation.value.messages[loadingMessageIndex].content = res.data
+      currentConversation.value.messages[loadingMessageIndex].loading = false
     } else {
-      loadingMessage.content = res.msg || '获取回复失败，请稍后重试'
-      loadingMessage.loading = false
-      ElMessage.error(loadingMessage.content)
+      const errorMessage = res.msg || '获取回复失败，请稍后重试'
+      currentConversation.value.messages[loadingMessageIndex].content = errorMessage
+      currentConversation.value.messages[loadingMessageIndex].loading = false
+      ElMessage.error(errorMessage)
     }
   } catch (error) {
     console.error('sendMessage error', error)
     const backendMsg = error?.response?.data?.msg || error?.message
-    loadingMessage.content = error?.code === 'ECONNABORTED'
+    const errorMessage = error?.code === 'ECONNABORTED'
       ? '云端模型响应时间过长，请稍后重试。'
       : (backendMsg ? `获取回复失败：${backendMsg}` : '获取回复失败，请检查后端服务和 DeepSeek 配置')
-    loadingMessage.loading = false
-    ElMessage.error(loadingMessage.content)
+    currentConversation.value.messages[loadingMessageIndex].content = errorMessage
+    currentConversation.value.messages[loadingMessageIndex].loading = false
+    ElMessage.error(errorMessage)
   }
 
   nextTick(scrollToBottom)
