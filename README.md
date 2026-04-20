@@ -101,9 +101,9 @@ APP_CORS_ALLOWED_ORIGINS=https://your-project.vercel.app
 
 This repository includes a root-level `render.yaml` so Render can create the backend service with:
 
-- `rootDir`: `backend`
-- `buildCommand`: `./mvnw clean package -DskipTests`
-- `startCommand`: `java -jar target/magic_conch_backend-0.0.1-SNAPSHOT.jar`
+- `runtime`: `docker`
+- `dockerfilePath`: `./backend/Dockerfile`
+- `dockerContext`: `./backend`
 
 After the backend is live on Render, copy the public backend URL into the Vercel environment variable:
 

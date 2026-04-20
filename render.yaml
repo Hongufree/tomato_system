@@ -1,11 +1,10 @@
 services:
   - type: web
     name: tomato-backend
-    runtime: java
-    rootDir: backend
+    runtime: docker
     plan: free
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/magic_conch_backend-0.0.1-SNAPSHOT.jar
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     envVars:
       - key: DEEPSEEK_API_KEY
         sync: false

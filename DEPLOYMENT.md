@@ -164,10 +164,9 @@ This repository includes a root-level `render.yaml` for deploying the backend fr
 Recommended Render settings:
 
 - Service type: `Web Service`
-- Root directory: `backend`
-- Runtime: `Java`
-- Build command: `./mvnw clean package -DskipTests`
-- Start command: `java -jar target/magic_conch_backend-0.0.1-SNAPSHOT.jar`
+- Runtime: `Docker`
+- Dockerfile path: `./backend/Dockerfile`
+- Docker build context: `./backend`
 
 Required Render environment variables:
 
