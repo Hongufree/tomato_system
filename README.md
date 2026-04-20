@@ -74,12 +74,14 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for a Linux cloud deployment guide with:
 - Nginx reverse proxy example
 - environment variable setup
 
+This repository also includes [render.yaml](render.yaml) for easier Render backend deployment from GitHub.
+
 ## Vercel Frontend Deployment
 
 This repository is best deployed with:
 
 - `frontend/` on Vercel
-- `backend/` on a Java-friendly platform such as a cloud server, Render, Railway, or Fly.io
+- `backend/` on a Java-friendly platform such as Render or a cloud server
 
 In Vercel:
 
@@ -93,6 +95,20 @@ For the backend, make sure `APP_CORS_ALLOWED_ORIGINS` includes your Vercel domai
 
 ```bash
 APP_CORS_ALLOWED_ORIGINS=https://your-project.vercel.app
+```
+
+## Render Backend Deployment
+
+This repository includes a root-level `render.yaml` so Render can create the backend service with:
+
+- `rootDir`: `backend`
+- `buildCommand`: `./mvnw clean package -DskipTests`
+- `startCommand`: `java -jar target/magic_conch_backend-0.0.1-SNAPSHOT.jar`
+
+After the backend is live on Render, copy the public backend URL into the Vercel environment variable:
+
+```bash
+VITE_API_BASE_URL=https://your-render-service.onrender.com
 ```
 
 ## Security Notes

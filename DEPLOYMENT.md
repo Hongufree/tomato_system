@@ -2,6 +2,11 @@
 
 This project can be deployed on a Linux cloud server with a reverse proxy in front of the Spring Boot backend and the built frontend files.
 
+If you want the simplest hosted setup for this repository, use:
+
+- `frontend/` on Vercel
+- `backend/` on Render
+
 ## Recommended Server Setup
 
 - Ubuntu 22.04 or later
@@ -151,3 +156,32 @@ Frontend check:
 - The previous local image-model workflow is no longer used for inference.
 - The current deployed path is text-based consultation through the DeepSeek API.
 - If you later need HTTPS, add Certbot or your cloud provider's load balancer SSL configuration in front of Nginx.
+
+## Render Alternative
+
+This repository includes a root-level `render.yaml` for deploying the backend from GitHub to Render.
+
+Recommended Render settings:
+
+- Service type: `Web Service`
+- Root directory: `backend`
+- Runtime: `Java`
+- Build command: `./mvnw clean package -DskipTests`
+- Start command: `java -jar target/magic_conch_backend-0.0.1-SNAPSHOT.jar`
+
+Required Render environment variables:
+
+- `DEEPSEEK_API_KEY`
+- `APP_CORS_ALLOWED_ORIGINS=https://your-project.vercel.app`
+
+After Render assigns a backend URL such as:
+
+```bash
+https://tomato-backend.onrender.com
+```
+
+set the Vercel frontend variable to:
+
+```bash
+VITE_API_BASE_URL=https://tomato-backend.onrender.com
+```
